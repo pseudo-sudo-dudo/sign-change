@@ -10,6 +10,7 @@ def main():
 
     # Process the message differences
     diffLetters, uselessLetters = sc.find_differences(originalSign, newSign)
+    print(diffLetters)
     sc.print_output(diffLetters, uselessLetters)
 
 # Using the special variable

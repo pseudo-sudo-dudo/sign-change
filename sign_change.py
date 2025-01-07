@@ -10,7 +10,7 @@ class SignChanger:
 
     # function to return the difference in characters between the two messages
     # input : two strings
-    # output : dictionary of character differences
+    # output : dictionary of character differences & no longer needed chars
     def find_differences(self, ogSign, newSign):
         # remove spaces
         ogSign = ogSign.replace(" ", "").upper()
