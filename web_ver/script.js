@@ -1,12 +1,14 @@
 function compareSigns() {
     let originalSign = document.getElementById("originalSign").value.toUpperCase().replace(/\s+/g, '');
     let newSign = document.getElementById("newSign").value.toUpperCase().replace(/\s+/g, '');
+    let showExtraDetails = document.getElementById("showExtraDetails").checked;
 
     let originalCount = countLetters(originalSign);
     let newCount = countLetters(newSign);
 
     let neededLetters = subtractCounts(newCount, originalCount);
     let unusedLetters = subtractCounts(originalCount, newCount);
+    let sharedLetters = getSharedLetters(originalCount, newCount);
 
     let resultText = "";
 
@@ -17,9 +19,17 @@ function compareSigns() {
         resultText += "No extra letters needed!\n";
     }
 
-    if (Object.keys(unusedLetters).length > 0) {
-        resultText += "\nLetters no longer needed:\n";
-        resultText += formatSortedOutput(unusedLetters);
+    // Show extra details only if the checkbox is checked
+    if (showExtraDetails) {
+        if (Object.keys(sharedLetters).length > 0) {
+            resultText += "\nShared letters:\n";
+            resultText += formatSortedOutput(sharedLetters);
+        }
+
+        if (Object.keys(unusedLetters).length > 0) {
+            resultText += "\nLetters no longer needed:\n";
+            resultText += formatSortedOutput(unusedLetters);
+        }
     }
 
     document.getElementById("result").textContent = resultText;
@@ -46,10 +56,21 @@ function subtractCounts(main, sub) {
     return diff;
 }
 
+// Find shared letters (letters that exist in both)
+function getSharedLetters(count1, count2) {
+    let shared = {};
+    for (let char in count1) {
+        if (count2[char]) {
+            shared[char] = Math.min(count1[char], count2[char]);
+        }
+    }
+    return shared;
+}
+
 // Format and sort output alphabetically
 function formatSortedOutput(letterCounts) {
     return Object.keys(letterCounts)
-        .sort() // Sort alphabetically
+        .sort()
         .map(char => `${char} - ${letterCounts[char]}`)
         .join("\n") + "\n";
 }
