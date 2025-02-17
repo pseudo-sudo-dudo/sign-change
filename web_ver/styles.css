@@ -55,8 +55,13 @@ input[type="checkbox"] {
 }
 
 .checkbox-container {
-    border: 2px solid black;
-    /* Creates a solid black border with a 2px width */
-    border-radius: 15px;
+    background-color: #f5f5f5;
+    /* Light off-white background */
+    border-radius: 10px;
+    /* Slightly rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* Light shadow around the div */
+    padding: 5px;
+    /* Space inside the div */
     margin: 20px;
 }
